@@ -32,9 +32,8 @@ class DataTransformer:
         if result_cols is None:
             result_cols = need_to_transform
 
-        if self.__use_backups:
-            return DataWithBackUp(columns, result.copy(), result.copy()[result_cols])
-        return DataWithBackUp(columns, result.copy(), None)
+        backups = result.copy()[result_cols] if self.__use_backups else None
+        return DataWithBackUp(columns, result.copy(), backups)
 
     def use_ordinal_encoder(self, data: DataFrame, columns=None) -> DataWithBackUp:
         def use_function(data_copy, need_to_transform):
